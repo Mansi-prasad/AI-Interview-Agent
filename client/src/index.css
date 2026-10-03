@@ -1,1 +1,70 @@
 @import "tailwindcss";
+
+/* LIGHT THEME */
+
+:root,
+[data-theme="light"] {
+  /* --bg: #f7f7ff; */
+  --bg: #f3f3f3;
+  --surface: #ffffff;
+  --surface-2: #f3f3ff;
+
+  --border: rgba(4, 0, 154, 0.08);
+  --border-strong: rgba(4, 0, 154, 0.15);
+
+  --ink: #111827;
+  --ink-muted: #6b7280;
+  --ink-light: #9ca3af;
+
+  /* Main Theme */
+  --accent: #04009A;
+  --accent-hover: #02006F;
+  --accent-strong: #030078;
+
+  /* Light Theme Shades */
+  --accent-soft: #E8E8FF;
+  --accent-softer: #F3F3FF;
+
+  /* Hero */
+  --accent-hero: #04009A;
+  --accent-hero-2: #302CC2;
+
+  /* Status */
+  --success: #15803D;
+  --warning: #B45309;
+  --danger: #B91C1C;
+}
+
+
+/* DARK THEME */
+
+[data-theme="dark"] {
+  --bg: #080817;
+  --surface: #10102A;
+  --surface-2: #15153A;
+
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --ink: #F5F5FF;
+  --ink-muted: #A4A4B8;
+  --ink-light: #707087;
+
+  /* Main Theme */
+  --accent: #5753D6;
+  --accent-hover: #6D69E5;
+  --accent-strong: #817DF0;
+
+  /* Dark Theme Shades */
+  --accent-soft: rgba(87, 83, 214, 0.14);
+  --accent-softer: rgba(87, 83, 214, 0.08);
+
+  /* Hero */
+  --accent-hero: #04009A;
+  --accent-hero-2: #302CC2;
+
+  /* Status */
+  --success: #4ADE80;
+  --warning: #FBBF24;
+  --danger: #F87171;
+}
