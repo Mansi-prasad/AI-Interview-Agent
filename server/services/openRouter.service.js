@@ -1,16 +1,16 @@
-import axois from "axios";
+import axios from "axios";
 
-export const askAI = async ({ messages }) => {
+export const askAI = async (messages) => {
   try {
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       throw new Error("Messages array is empty.");
     }
 
-    const response = await axois.post(
+    const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
         model: "openai/gpt-4o-mini",
-        messages: messages,
+        messages,
       },
       {
         headers: {
@@ -30,6 +30,8 @@ export const askAI = async ({ messages }) => {
   } catch (error) {
     console.log("OpenRouter Error: ", error.response?.data || error.message);
 
-    throw new Error("OpenRouter API Error.");
+    throw new Error(
+      error.response?.data?.error?.message || "OpenRouter API Error.",
+    );
   }
 };
