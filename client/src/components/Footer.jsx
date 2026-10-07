@@ -3,44 +3,30 @@ import { BsRobot, BsGithub, BsLinkedin, BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <footer
-      className="
-        bg-[var(--surface-2)]
-        text-[var(--ink)]
-        border-t
-        border-[var(--border)]
-        mt-6
-      "
-    >
+    <footer className="bg-[var(--surface-2)] text-[var(--ink)] border-t  border-[var(--border)] mt-6">
       <div className="max-w-6xl mx-auto px-6 pt-12 pb-6">
         {/* Main Footer */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--accent)] text-white"
-              >
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--accent)] text-white">
                 <BsRobot size={20} />
               </div>
 
               <h2 className="text-xl font-bold">
-                Interview
-                <span className="text-[var(--accent)]">.AI</span>
+                Hey
+                <span className="text-[var(--accent)]">Agent</span>
               </h2>
             </div>
 
-            <p
-              className=" text-sm leading-6 text-[var(--ink-muted)] max-w-md "
-            >
+            <p className=" text-sm leading-6 text-[var(--ink-muted)] max-w-md ">
               Prepare for your next interview with AI-powered practice,
               personalized feedback, resume analysis, and realistic interview
               simulations.
             </p>
 
-            <p
-              className=" text-xs  mt-4 text-[var(--ink-light)]"
-            >
+            <p className=" text-xs  mt-4 text-[var(--ink-light)]">
               Practice smarter. Interview with confidence.
             </p>
 
@@ -147,37 +133,18 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* =======================
-            Bottom Footer
-        ======================== */}
-
-        <div
-          className="
-            border-t
-            border-[var(--border)]
-            mt-10
-            pt-6
-            flex
-            flex-col
-            md:flex-row
-            items-center
-            justify-between
-            gap-4
-          "
-        >
+        {/* Bottom Footer */}
+        <div className="border-t border-[var(--border)] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--ink-light)]">
-            © {new Date().getFullYear()} Interview.AI. All rights reserved.
+            © {new Date().getFullYear()} HeyAgent. All rights reserved.
           </p>
-
           <div className="flex items-center gap-5 text-xs text-[var(--ink-muted)]">
             <a href="#" className="hover:text-[var(--accent)] transition">
               Privacy Policy
             </a>
-
             <a href="#" className="hover:text-[var(--accent)] transition">
               Terms of Service
             </a>
-
             <a href="#" className="hover:text-[var(--accent)] transition">
               Contact
             </a>
