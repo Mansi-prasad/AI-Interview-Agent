@@ -7,6 +7,7 @@ import axios from "axios"
 import { setUserData } from "./redux/userSlice"
 import Interview from "./pages/Interview"
 export const ServerUrl = import.meta.env.VITE_SERVER_URL
+import  { Toaster } from "react-hot-toast"
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
   },[dispatch]);
   return (
    <>
+   <Toaster/>
     <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/auth" element={<Auth/>}/>
