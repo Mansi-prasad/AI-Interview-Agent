@@ -12,6 +12,7 @@ import axios from "axios";
 import { ServerUrl } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../redux/userSlice";
+import toast from "react-hot-toast";
 
 const Step1SetUp = ({ onStart }) => {
   const { userData } = useSelector((state) => state.user);
@@ -65,7 +66,7 @@ const Step1SetUp = ({ onStart }) => {
         { withCredentials: true },
       );
 
-      console.log(result.data);
+      console.log("Interview created:", result.data);
 
       if (userData) {
         dispatch(
@@ -75,7 +76,11 @@ const Step1SetUp = ({ onStart }) => {
       setLoading(false);
       onStart(result.data);
     } catch (error) {
-      console.log(error);
+      console.log("Start InterviewError :", error.message);
+      toast.error(
+        error.response?.data?.message ||
+          "An error occurred while starting the interview.",
+      );
       setLoading(false);
     }
   };
