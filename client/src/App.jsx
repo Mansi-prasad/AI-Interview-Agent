@@ -8,6 +8,9 @@ import { setUserData } from "./redux/userSlice"
 import Interview from "./pages/Interview"
 export const ServerUrl = import.meta.env.VITE_SERVER_URL
 import  { Toaster } from "react-hot-toast"
+import InterviewHistory from "./pages/InterviewHistory"
+import Pricing from "./pages/Pricing"
+import InterViewReport from "./pages/InterviewReport"
 
 function App() {
 
@@ -36,6 +39,9 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/auth" element={<Auth/>}/>
       <Route path="/interview" element={<Interview/>}/>
+      <Route path="/history" element={<InterviewHistory/>}/>
+      <Route path="/pricing" element={<Pricing/>}/>
+      <Route path="/report/:id" element={<InterViewReport/>}/>
      
     </Routes>
    </>

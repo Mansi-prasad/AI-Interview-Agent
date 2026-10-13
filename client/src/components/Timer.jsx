@@ -12,9 +12,9 @@ const Timer = ({ timeLeft, totalTime }) => {
         text={`${timeLeft}s`}
         styles={buildStyles({
           textSize: "28px",
-          pathcolor: "#10B981",
-          textColor: "#ef4444",
-          trailColor: "#e5e7eb",
+          pathColor: "var(--success)",
+          textColor: "var(--danger)",
+          trailColor: "var(--border)",
         })}
       />
     </div>
