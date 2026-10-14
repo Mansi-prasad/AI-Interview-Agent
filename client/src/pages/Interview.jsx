@@ -26,7 +26,7 @@ const Interview = () => {
           }}
         />
       )}
-      {step === 3 && <Step3Report report={interviewData?.report} />}
+      {step === 3 && <Step3Report report={interviewData?.report} isLoading={false}/>}
     </div>
   );
 };

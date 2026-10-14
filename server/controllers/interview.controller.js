@@ -409,11 +409,15 @@ export const finishInterview = async (req, res) => {
 
 export const getMyInterview = async (req, res) => {
   try {
-    const interview = await Interview.findOne({ userId: req.userId })
+    const interviews = await Interview.find({ userId: req.userId })
       .sort({ createdAt: -1 })
       .select("role experience mode finalScore status createdAt");
 
-    return res.status(200).json(interview);
+    return res.status(200).json({
+      success: true,
+      count: interviews.length,
+      interviews,
+    });
   } catch (error) {
     return res
       .status(500)
@@ -459,8 +463,8 @@ export const getInterviewReport = async (req, res) => {
       questionWiseScore: interview.questions,
     });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: `Failed to find currentUser Interview report ${error}` });
+    return res.status(500).json({
+      message: `Failed to find currentUser Interview report ${error}`,
+    });
   }
 };
