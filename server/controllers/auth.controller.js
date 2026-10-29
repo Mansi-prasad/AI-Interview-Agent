@@ -2,6 +2,15 @@ import genToken from "../config/token.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
+const isProduction = process.env.NODE_ENV === "production";
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: isProduction ? "none" : "strict",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // milliseconds
+};
+
 export const googleAuth = async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -13,12 +22,7 @@ export const googleAuth = async (req, res) => {
 
     const token = await genToken(user._id);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // millisecond
-    });
+    res.cookie("token", token, cookieOptions);
 
     return res.status(200).json(user);
   } catch (error) {
@@ -31,8 +35,8 @@ export const logOut = async (req, res) => {
   try {
     await res.clearCookie("token", {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "strict",
     });
     return res.status(200).json({ message: "Logout Successfully!" });
   } catch (error) {
@@ -82,8 +86,7 @@ export const register = async (req, res) => {
 
     if (existingUser) {
       return res.status(409).json({
-        message:
-          "An account with this email already exists. Please log in.",
+        message: "An account with this email already exists. Please log in.",
       });
     }
 
@@ -99,12 +102,7 @@ export const register = async (req, res) => {
     // generate JWT
     const token = await genToken(user._id);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie("token", token, cookieOptions);
 
     return res.status(201).json({
       message: "Registration successful!",
@@ -130,7 +128,7 @@ export const register = async (req, res) => {
   }
 };
 
-// NEW: Manual login
+// Manual login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -160,10 +158,7 @@ export const login = async (req, res) => {
     }
 
     // Compare the entered password with the stored hash
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      user.password,
-    );
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({
@@ -174,12 +169,7 @@ export const login = async (req, res) => {
     // Generate JWT
     const token = await genToken(user._id);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie("token", token, cookieOptions);
 
     return res.status(200).json({
       message: "Login successful!",
