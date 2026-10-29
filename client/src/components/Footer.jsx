@@ -136,7 +136,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="border-t border-[var(--border)] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--ink-light)]">
-            © {new Date().getFullYear()} HeyAgent. All rights reserved.
+            © {new Date().getFullYear()} InterView.AI. All rights reserved.
           </p>
           <div className="flex items-center gap-5 text-xs text-[var(--ink-muted)]">
             <a href="#" className="hover:text-[var(--accent)] transition">

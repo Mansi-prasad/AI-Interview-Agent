@@ -226,35 +226,35 @@ const Step3Report = ({ report, isLoading = false }) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8"
+            className="bg-[var(--surface)] text-[var(--ink)] rounded-2xl sm:rounded-3xl border border-[var(--border)] shadow-lg p-5 sm:p-8 transition-colors duration-300"
           >
-            <h3 className="text-base sm:text-lg font-semibold font-semibold text-gray-700 mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-[var(--ink)] mb-6">
               Question Breakdown
             </h3>
             <div className="space-y-6">
               {questionWiseScore.map((q, i) => (
                 <div
                   key={i}
-                  className="bg-gray-50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-200"
+                  className="bg-[var(--bg)] p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-[var(--border-strong)] transition-colors duration-300"
                 >
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
                     <div>
-                      <p className="text-xs text-gray-400">Question {i + 1}</p>
-                      <p className="font-semibold text-gray-800 text-sm sm:text-base leading-relexed">
+                      <p className="text-xs text-[var(--ink-muted)] mb-1">Question {i + 1}</p>
+                      <p className="font-semibold text-[var(--ink)] text-sm sm:text-base leading-relaxed break-words">
                         {q.question || "Question not available"}
                       </p>
                     </div>
 
-                    <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full font-bold text-xs sm:text-sm w-fit">
+                    <div className="bg-[var(--accent-soft)] text-[var(--accent)] border border-[var(--border)] px-3 py-1 rounded-full font-bold text-xs sm:text-sm w-fit shrink-0">
                       {q.score ?? 0}/10
                     </div>
                   </div>
 
-                  <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                    <p className="text-xs text-green-600 font-semibold mb-1">
+                  <div className="bg-[var(--surface-2)] border border-[var(--border)] p-4 rounded-lg transition-colors duration-300">
+                    <p className="text-xs text-[var(--success)] font-semibold mb-1">
                       AI Feedback
                     </p>
-                    <p className="text-sm text-gray-700 leading-relaxed">
+                    <p className="text-sm text-[var(--ink-muted)] leading-relaxed break-words">
                       {q.feedback && q.feedback.trim() !== ""
                         ? q.feedback
                         : "No feedback available for this question. "}

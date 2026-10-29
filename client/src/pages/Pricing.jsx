@@ -71,7 +71,6 @@ export default function Pricing() {
 
   const currentPlan = plans.find((plan) => plan.id === selectedPlan);
 
-
   const handleContinue = () => {
     if (!currentPlan || currentPlan.id === "free") return;
 
@@ -93,39 +92,79 @@ export default function Pricing() {
 
       const amount = plan.id === "basic" ? 100 : plan.id === "pro" ? 500 : 0;
 
-      const result = await axios.post(ServerUrl + "/api/payment/order", {
-        planId: plan.id,
-        amount: amount,
-        credits: plan.credits,
-      }, {withCredentials: true});
-      console.log(result.data);
+      if (amount <= 0) {
+        toast.error("Invalid payment plan selected.");
+        return;
+      }
 
+      // create Razorpay order
+      const result = await axios.post(
+        ServerUrl + "/api/payment/order",
+        {
+          planId: plan.id,
+          amount: amount,
+          credits: plan.credits,
+        },
+        { withCredentials: true },
+      );
+
+      const order = result.data;
+
+      // open Razorpay checkout
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: result.data.amount,
-        currency: "INR",
+        amount: order.amount,
+        currency: order.currency || "INR",
         name: "InterView.AI",
         description: `${plan.name} - ${plan.credits} Credits`,
-        order_id: result.data.id,
+        order_id: order.id,
 
-        handler: async function (response) {
-          console.log(response);
-          const verifypay = await axios.post(ServerUrl + "/api/payment/verify", response, {withCredentials: true});
-          dispatch(setUserData(verifypay.data.user))
+        handler: async (response) => {
+          try {
+            const verifyResponse = await axios.post(
+              ServerUrl + "/api/payment/verify",
+              response,
+              { withCredentials: true },
+            );
 
-          toast.success("Payment Successful Credits Added!");
-          navigate("/");
+            if (verifyResponse.data.success === false) {
+              toast.error(
+                verifyResponse.data.message || "Payment verification failed.",
+              );
+              return;
+            }
+
+            if (verifyResponse.data.user) {
+              dispatch(setUserData(verifyResponse.data.user));
+            }
+
+            toast.success("Payment successful! Credits added to your account.");
+
+            setTimeout(() => {
+              navigate("/");
+            }, 1500);
+          } catch (error) {
+            console.error("Payment verification error:", error);
+
+            toast.error(
+              error.response?.data?.message ||
+                "Payment verification failed. Please contact support if money was deducted.",
+            );
+          } finally {
+            setLoadingPlan(null);
+          }
         },
+
         theme: {
           color: "#09a873",
         },
-      }
+      };
 
       const rzp = new window.Razorpay(options);
-      rzp.open();
 
+      rzp.open();
       setLoadingPlan(null);
-      
+
     } catch (error) {
       console.log("Handle payment error: ", error);
       setLoadingPlan(null);

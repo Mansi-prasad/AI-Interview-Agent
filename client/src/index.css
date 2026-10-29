@@ -68,3 +68,7 @@
   --warning: #FBBF24;
   --danger: #F87171;
 }
+
+html {
+  scroll-behavior: smooth;
+}

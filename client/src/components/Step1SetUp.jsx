@@ -42,8 +42,6 @@ const Step1SetUp = ({ onStart }) => {
         { withCredentials: true },
       );
 
-      console.log(result.data);
-
       setRole(result.data.role || "");
       setExperience(result.data.experience || "");
       setProjects(result.data.projects || []);
@@ -65,8 +63,6 @@ const Step1SetUp = ({ onStart }) => {
         { role, experience, mode, resumeText, projects, skills },
         { withCredentials: true },
       );
-
-      console.log("Interview created:", result.data);
 
       if (userData) {
         dispatch(

@@ -75,8 +75,6 @@ Return strictly JSON:
 
 export const generateQuestion = async (req, res) => {
   try {
-    console.log("Generate Question Request Body:", req.body);
-    console.log("User ID:", req.userId);
     let { role, experience, mode, resumeText, projects, skills } = req.body;
 
     role = role?.trim();
@@ -170,7 +168,6 @@ export const generateQuestion = async (req, res) => {
     const aiResponse = await askAI(messages);
 
     if (!aiResponse || !aiResponse.trim()) {
-      console.log("AI returned empty response.");
       return res.status(500).json({
         message: "AI returned empty response.",
       });
@@ -183,7 +180,6 @@ export const generateQuestion = async (req, res) => {
       .slice(0, 5);
 
     if (questionsArray.length === 0) {
-      console.log("AI failed to generate questions.");
       return res.status(500).json({
         message: "AI failed to generate questions.",
       });

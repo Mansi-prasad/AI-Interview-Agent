@@ -6,11 +6,12 @@ import { useEffect } from "react"
 import axios from "axios"
 import { setUserData } from "./redux/userSlice"
 import Interview from "./pages/Interview"
-export const ServerUrl = import.meta.env.VITE_SERVER_URL
 import  { Toaster } from "react-hot-toast"
 import InterviewHistory from "./pages/InterviewHistory"
 import Pricing from "./pages/Pricing"
 import InterViewReport from "./pages/InterviewReport"
+
+export const ServerUrl = import.meta.env.VITE_SERVER_URL;
 
 function App() {
 
@@ -23,14 +24,13 @@ function App() {
           withCredentials: true,
         })
         const data = await result.data
-        console.log("Fetched user data:", data)
         dispatch(setUserData(data.user))
       } catch (error) {
         console.log("Error fetching user:",error)
         dispatch(setUserData(null))
       }
     }
-      getUser()
+      getUser();
   },[dispatch]);
   return (
    <>
