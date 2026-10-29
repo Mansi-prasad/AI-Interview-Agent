@@ -11,6 +11,10 @@ export const analyzeResume = async (req, res) => {
     }
 
     const filepath = req.file.path;
+
+    console.log("Uploaded resume path:", filepath);
+    console.log("Resume file exists:", fs.existsSync(filepath));
+
     const fileBuffer = await fs.promises.readFile(filepath);
     const uint8Array = new Uint8Array(fileBuffer);
 
@@ -63,7 +67,7 @@ Return strictly JSON:
       resumeText,
     });
   } catch (error) {
-    console.log("Error: ", error);
+    console.log("Resume analysis Error: ", error);
 
     if (req.file && fs.existsSync(req.file.path)) {
       fs.unlinkSync(req.file.path);
